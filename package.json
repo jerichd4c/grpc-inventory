@@ -1,0 +1,16 @@
+{
+  "name": "grpc-inventory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "check:protos": "node scripts/check-protos.js"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.8.1"
+  }
+}

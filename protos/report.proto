@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package inventory.report;
+
+// Turns generic table into formatted report.
+// It knows nothing about products or sales: any B.O can use it.
+service ReportService {
+  rpc Generate (ReportRequest) returns (ReportResponse);
+}
+
+enum Format {
+    FORMAT_UNSPECIFIED = 0;
+    FORMAT_TEXT = 1;
+    FORMAT_CSV = 2;
+}
+
+// One table row. Protobuf has no "list of lists" so each row is wrapped.
+message Row {
+  repeated string values = 1;
+}
+
+message ReportRequest {
+    string title = 1;
+    repeated string columns = 2;
+    repeated Row rows = 3;
+    Format format = 4;
+}
+
+message ReportResponse {
+    string content = 1;
+    int32 row_count = 2;
+    string generated_at = 3;
+}

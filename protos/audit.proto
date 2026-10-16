@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package inventory.audit;
+
+// Stores a log of every operation performed by the business objects.
+service AuditService {
+  rpc Log (AuditEvent) returns (LogAck);
+  rpc List (ListRequest) returns (ListResponse);
+}
+
+message AuditEvent {
+  string entity = 1;
+  string entity_id = 2;
+  string action = 3;
+  string detail = 4;
+}
+
+message LogAck {
+    int64 id = 1;
+    string timestamp = 2;
+}
+
+// An empty entity means "all entities", limit 0 means "use the default"
+message ListRequest {
+    string entity = 1;
+    int32 limit = 2;
+}
+
+message AuditRecord {
+    int64 id = 1;
+    string entity = 2;
+    string entity_id = 3;
+    string action = 4;
+    string detail = 5;
+    string timestamp = 6;
+}
+
+message ListResponse {
+    repeated AuditRecord events = 1;
+}
