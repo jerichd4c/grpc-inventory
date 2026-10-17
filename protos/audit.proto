@@ -16,25 +16,25 @@ message AuditEvent {
 }
 
 message LogAck {
-    int64 id = 1;
-    string timestamp = 2;
+  int64 id = 1;
+  string timestamp = 2;
 }
 
 // An empty entity means "all entities", limit 0 means "use the default"
 message ListRequest {
-    string entity = 1;
-    int32 limit = 2;
+  string entity = 1;
+  int32 limit = 2;
 }
 
 message AuditRecord {
-    int64 id = 1;
-    string entity = 2;
-    string entity_id = 3;
-    string action = 4;
-    string detail = 5;
-    string timestamp = 6;
+  int64 id = 1;
+  string entity = 2;
+  string entity_id = 3;
+  string action = 4;
+  string detail = 5;
+  string timestamp = 6;
 }
 
 message ListResponse {
-    repeated AuditRecord events = 1;
+  repeated AuditRecord events = 1;
 }
