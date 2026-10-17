@@ -1,0 +1,14 @@
+{
+  "name": "@grpc-inventory/clients",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": {
+    "try": "node scripts/try-clients.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.6",
+    "@grpc/proto-loader": "^0.8.1"
+  }
+}
