@@ -5,10 +5,14 @@
   "type": "module",
   "workspaces": [
     "packages/*",
-    "services/*"
+    "services/*",
+    "backend"
   ],
   "scripts": {
-    "check:protos": "node scripts/check-protos.js"
+    "check:protos": "node scripts/check-protos.js",
+    "report": "npm start -w @grpc-inventory/report",
+    "audit": "npm start -w @grpc-inventory/audit",
+    "cli": "npm start -w @grpc-inventory/backend"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.8.1"
