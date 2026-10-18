@@ -1,0 +1,13 @@
+{
+  "name": "@grpc-inventory/bo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": {
+    "try": "node scripts/try-bo.js"
+  },
+  "dependencies": {
+    "@grpc-inventory/clients": "1.0.0"
+  }
+}
