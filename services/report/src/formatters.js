@@ -20,7 +20,7 @@ export function formatText(title, columns, rows, generatedAt) {
     separator,
     ...rows.map(formatRow),
     '',
-    `(${rows.length} rows)`,
+    `(${rows.length} ${rows.length === 1 ? 'row' : 'rows'})`,
   ].join('\n');
 }
 

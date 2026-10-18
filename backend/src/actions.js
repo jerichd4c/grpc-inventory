@@ -2,7 +2,7 @@
 // objects and print the result: no SQL and no gRPC in this file.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { Product, Sale } from '@grpc-inventory/bo';
+import { checkServices, Product, Sale } from '@grpc-inventory/bo';
 import { ask } from './terminal.js';
 
 const EXPORTS_DIR = join(import.meta.dirname, '..', 'exports');
@@ -100,4 +100,10 @@ export async function showHistory() {
     const time = e.timestamp.slice(0, 19).replace('T', ' ');
     console.log(`  ${time}  ${e.entity}:${e.entityId}  ${e.action.padEnd(8)} ${e.detail}`);
   }
+}
+
+export async function showServiceStatus() {
+  const status = await checkServices();
+  const label = (online) => (online ? 'online' : 'OFFLINE');
+  console.log(`Services: report ${label(status.report)}, audit ${label(status.audit)}`);
 }

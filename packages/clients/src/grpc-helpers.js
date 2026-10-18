@@ -13,6 +13,14 @@ const LOADER_OPTIONS = {
   defaults: true,
 };
 
+// When a service goes down, gRPC retries the connection waiting longer each
+// time (up to 2 minutes by default). Capping the wait at 2 seconds means the
+// client notices quickly when the service comes back.
+const CHANNEL_OPTIONS = {
+  'grpc.initial_reconnect_backoff_ms': 500,
+  'grpc.max_reconnect_backoff_ms': 2000,
+};
+
 // Creates a gRPC client for one service of one .proto file.
 // Example: createGrpcClient('report.proto', 'inventory.report.ReportService', 'localhost:50051')
 export function createGrpcClient(protoFile, serviceName, address) {
@@ -21,7 +29,7 @@ export function createGrpcClient(protoFile, serviceName, address) {
 
   // 'inventory.report.ReportService' -> proto.inventory.report.ReportService
   const Service = serviceName.split('.').reduce((obj, key) => obj[key], proto);
-  return new Service(address, grpc.credentials.createInsecure());
+  return new Service(address, grpc.credentials.createInsecure(), CHANNEL_OPTIONS);
 }
 
 // Error thrown by every client method. It hides the raw gRPC error and keeps
@@ -44,5 +52,13 @@ export function callUnary(client, operation, method, request, timeoutMs) {
       if (err) reject(new ServiceError(operation, err));
       else resolve(response);
     });
+  });
+}
+
+// Resolves true if a connection to the service can be opened before the
+// deadline, false otherwise. No RPC is sent: it only checks the connection.
+export function isReachable(client, timeoutMs) {
+  return new Promise((resolve) => {
+    client.waitForReady(Date.now() + timeoutMs, (err) => resolve(!err));
   });
 }

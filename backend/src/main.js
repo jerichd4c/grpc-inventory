@@ -11,6 +11,7 @@ const MENU = [
   { key: '6', label: 'Show report', run: actions.showReport },
   { key: '7', label: 'Export report (CSV)', run: actions.exportReport },
   { key: '8', label: 'Activity history', run: actions.showHistory },
+  { key: '9', label: 'Service status', run: actions.showServiceStatus },
 ];
 
 function printMenu() {
@@ -36,6 +37,9 @@ function printError(err) {
 }
 
 async function main() {
+  // Tell the user up front if a microservice is not running.
+  await actions.showServiceStatus();
+
   while (true) {
     printMenu();
     const choice = await ask('> ');

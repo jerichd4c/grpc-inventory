@@ -57,3 +57,9 @@ server.bindAsync(`0.0.0.0:${PORT}`, grpc.ServerCredentials.createInsecure(), (er
   }
   console.log(`[report] listening on port ${port}`);
 });
+
+// Ctrl+C: stop accepting calls and let pending ones finish before exiting.
+process.on('SIGINT', () => {
+  console.log('[report] shutting down...');
+  server.tryShutdown(() => process.exit(0));
+});

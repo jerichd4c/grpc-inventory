@@ -1,4 +1,4 @@
-import { callUnary, createGrpcClient } from './grpc-helpers.js';
+import { callUnary, createGrpcClient, isReachable } from './grpc-helpers.js';
 
 const FORMATS = {
   text: 'FORMAT_TEXT',
@@ -35,6 +35,11 @@ export class ReportClient {
       rowCount: response.row_count,
       generatedAt: response.generated_at,
     };
+  }
+
+  // True if the service accepts connections right now.
+  isAvailable(timeoutMs = 1500) {
+    return isReachable(this.client, timeoutMs);
   }
 
   close() {

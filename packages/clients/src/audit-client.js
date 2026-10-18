@@ -1,4 +1,4 @@
-import { callUnary, createGrpcClient } from './grpc-helpers.js';
+import { callUnary, createGrpcClient, isReachable } from './grpc-helpers.js';
 
 export class AuditClient {
   constructor({
@@ -31,6 +31,11 @@ export class AuditClient {
       detail: event.detail,
       timestamp: event.timestamp,
     }));
+  }
+
+  // True if the service accepts connections right now.
+  isAvailable(timeoutMs = 1500) {
+    return isReachable(this.client, timeoutMs);
   }
 
   close() {

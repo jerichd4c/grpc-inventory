@@ -5,6 +5,7 @@ import { closeClients } from './remote.js';
 export { BusinessError } from './errors.js';
 export { Product } from './product.js';
 export { Sale } from './sale.js';
+export { checkServices } from './remote.js';
 
 // Re-exported so the backend can recognize service failures
 // without depending on the clients library directly.
