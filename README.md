@@ -13,7 +13,7 @@
 <h3 align="center">gRPC Inventory</h3>
 
   <p align="center">
-    An inventory and sales system built from independent gRPC microservices and Protocol Buffers, with a command-line interface on top. Project for the Introduction to Distributed Systems course at URU.
+    An inventory and sales system built from independent gRPC microservices and Protocol Buffers, with a command-line interface on top.
   </p>
 </div>
 
